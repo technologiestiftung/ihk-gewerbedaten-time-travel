@@ -1,0 +1,83 @@
+<html>
+  <head>
+    <title>IHK Dataviz</title>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css"
+      crossorigin="anonymous"
+    />
+    <script src="https://unpkg.com/pmtiles@2.9.0/dist/index.js"></script>
+    <script type="module" src="js/stimulus-controllers.js"></script>
+    <style>
+      body {
+        margin: 0;
+      }
+      #map {
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-controller="map" class="map">
+      <div id="map"></div>
+    </div>
+    <div style="position: absolute; top: 2rem; left: 2rem">
+      <select
+        name=""
+        id="branchen"
+        data-controller="select"
+        data-select-map-outlet=".map"
+        data-action="change->select#change"
+      >
+        <option value="all">Alle Branchen</option>
+        <option value="Gastronomie">Restaurants, Cafés etc.</option>
+        <option value="Kreative, künstlerische u. unterhaltende Tätigkeiten">
+          Kreativbranche / Kunst
+        </option>
+        <option value="Gesundheitswesen">Gesundheitswesen</option>
+        <option value="Spiel-, Wett- u. Lotteriewesen">
+          Spiel-, Wett- u. Lotteriewesen
+        </option>
+        <option value="Veterinärwesen">Tiermedizin</option>
+      </select>
+    </div>
+    <div
+      style="position: absolute; top: 2rem; right: 2rem"
+      data-controller="year-filter"
+      data-year-filter-initial-year-value="2023"
+      data-year-filter-map-outlet=".map"
+    >
+      <h1
+        data-year-filter-target="label"
+        id="year"
+        style="
+          font-size: 4rem;
+          font-family: sans-serif;
+          font-weight: 700;
+          margin: 0;
+        "
+      ></h1>
+      <input
+        data-action="change->year-filter#change"
+        data-year-filter-target="input"
+        id="slider"
+        type="range"
+        min="1923"
+        max="2023"
+        step="1"
+        value="2023"
+      />
+      <button
+        type="button"
+        style="display: block"
+        data-year-filter-target="toggle"
+        data-action="year-filter#toggleAutoplay"
+        data-year-filter-playing-param="false"
+      >
+        Play
+      </button>
+    </div>
+  </body>
+</html>

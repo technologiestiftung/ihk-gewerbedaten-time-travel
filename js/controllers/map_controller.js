@@ -17,7 +17,7 @@ export default class extends Controller {
     this.map.on("load", () => {
       this.map.addSource("gewerbe", {
         type: "vector",
-        url: "pmtiles://tiles/data.pmtiles",
+        url: "pmtiles://https://technologiestiftung.github.io/ihk-gewerbedaten-time-travel/tiles/data.pmtiles",
       });
 
       this.map.addLayer({

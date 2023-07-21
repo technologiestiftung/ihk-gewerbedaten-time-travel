@@ -22,9 +22,11 @@ Now you can start developing at http://xxx.xxx.xxx.xxx:8080.
 
 If you want to add new JavaScript, take a look at the [Stimulus conventions](https://stimulus.hotwired.dev/handbook/introduction) and if you decide to add a new controller, add it in `./js/controllers/` and register it in `./js/stimulus-controllers.js`.
 
-## Vector tileset
+## Preparing the data
 
-We use a vector tileset hosted on [Maptiler](https://www.maptiler.com/) to display the businesses in a performant way. In order to upload the required `.mbtiles` format, we need to generate it using [Tippecanoe](https://github.com/felt/tippecanoe).
+### PMTiles for vector tiles
+
+We create a PMTiles tile archive that we host on Amazon S3. In order to upload the required `.pmtiles` format, we need to generate it using [Tippecanoe](https://github.com/felt/tippecanoe).
 
 > Note that you will need to install the **latest** version of [Tippecanoe](https://github.com/felt/tippecanoe) first if you don't have it.
 
@@ -40,13 +42,25 @@ Download the latest IHK dataset as a CSV:
 curl -s -L https://media.githubusercontent.com/media/IHKBerlin/IHKBerlin_Gewerbedaten/master/data/IHKBerlin_Gewerbedaten.csv -o tmp/data.csv
 ```
 
+Add headers for filtered CSV:
+
+```bash
+awk 'NR==1{print $1}' tmp/data.csv > tmp/data-filtered.csv
+```
+
+Only keep the businesses that are registered in the Handelsregister:
+
+```bash
+grep -e 'im Handelsregister eingetragen' tmp/data.csv >> tmp/data-filtered.csv
+```
+
 Feed the CSV into Tippecanoe, using some flags to ensure we display _all_ business as dots and only include the properties necessary for the vector tileset:
 
 ```bash
-tippecanoe -f -o tiles/data.mbtiles -b0 -r1 -pk -pf -y branch_top_level_desc -y business_age -l ihk ./tmp/data.csv
+tippecanoe -f -o tiles/data.pmtiles -b0 -r1 -pk -pf -y branch_top_level_desc -y business_age -l ihk ./tmp/data-filtered.csv
 ```
 
-Now you can upload the tileset `tiles/data.mbtiles` to the Maptiler upload form and reference it in our MapLibre code.
+Now you can upload the tileset `tiles/data.pmtiles` to the S3 bucket, making sure that [correct permissions](https://protomaps.com/docs/pmtiles/cloud-storage#amazon-s3) are set.
 
 > TODO: This could become a bash script to make it less manual work.
 
@@ -54,10 +68,9 @@ Now you can upload the tileset `tiles/data.mbtiles` to the Maptiler upload form 
 
 - [x] use better (more subtle) basemap for dataviz purposes (e.g. via Maptiler and restricting the Maptiler key to specific origins)
 - [x] fix bug where slecting a branch seems to ignore the current year slider value
-- [ ] only show im Handelsregister eingetragen
+- [x] only show im Handelsregister eingetragen
 - [ ] style year slider properly
 - [ ] style select menu
 - [ ] agree on focus branches
 - [ ] consider adding legend
 - [ ] find better colors
-- [ ] explore NGINX for serving pmtiles again

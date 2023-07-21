@@ -15,15 +15,15 @@ export default class extends Controller {
     });
 
     this.map.on("load", () => {
-      this.map.addSource("gewerbe", {
+      this.map.addSource("businesses", {
         type: "vector",
         url: BUSINESSES_VECTOR_TILESET_URL,
       });
 
       this.map.addLayer({
-        id: "gewerbe-layer",
+        id: "businesses-layer",
         type: "circle",
-        source: "gewerbe",
+        source: "businesses",
         "source-layer": "ihk",
         layout: {
           visibility: "visible",
@@ -50,7 +50,7 @@ export default class extends Controller {
       });
       this.updateFilters({ minAge: 0 });
 
-      this.map.on("mouseenter", "gewerbe-layer", (e) => {
+      this.map.on("mouseenter", "businesses-layer", (e) => {
         console.log(e.features[0].properties?.branch_top_level_desc);
       });
     });
@@ -87,9 +87,9 @@ export default class extends Controller {
       getBranchFilter(newBranch),
     ].filter(Boolean);
 
-    this.map.setFilter("gewerbe-layer", ["all", ...filters]);
+    this.map.setFilter("businesses-layer", ["all", ...filters]);
 
-    this.map.setPaintProperty("gewerbe-layer", "circle-opacity", [
+    this.map.setPaintProperty("businesses-layer", "circle-opacity", [
       "interpolate",
       ["exponential", 0.5],
       ["-", ["get", "business_age"], newMinAge],
@@ -99,14 +99,14 @@ export default class extends Controller {
       0.2,
     ]);
 
-    this.map.setPaintProperty("gewerbe-layer", "circle-stroke-color", [
+    this.map.setPaintProperty("businesses-layer", "circle-stroke-color", [
       "case",
       ["==", 0, ["-", ["get", "business_age"], newMinAge]],
       "#1e40af",
       "#ffffff",
     ]);
 
-    this.map.setPaintProperty("gewerbe-layer", "circle-stroke-opacity", [
+    this.map.setPaintProperty("businesses-layer", "circle-stroke-opacity", [
       "case",
       ["==", 0, ["-", ["get", "business_age"], newMinAge]],
       1,
@@ -115,7 +115,7 @@ export default class extends Controller {
   }
 
   getFilterByFeatureProperty(property) {
-    const filterEntries = this.map.getFilter("gewerbe-layer");
+    const filterEntries = this.map.getFilter("businesses-layer");
 
     const propertyFilter = filterEntries?.find((filterEntry) =>
       JSON.stringify(filterEntry).includes(property)

@@ -4,6 +4,7 @@ import {
   MAPTILER_BASEMAP_STYLE_JSON_URL,
   BUSINESSES_VECTOR_TILESET_URL,
 } from "../utils/map-utils.js";
+import { isValidAge as isValidBusinessAge } from "../utils/businesses-util.js";
 
 export default class extends Controller {
   connect() {
@@ -89,31 +90,8 @@ export default class extends Controller {
 
     this.map.setFilter("businesses-layer", ["all", ...filters]);
 
-    if (this.isValidAge(newMinAge)) {
-      this.map.setPaintProperty("businesses-layer", "circle-opacity", [
-        "interpolate",
-        ["exponential", 0.5],
-        ["-", ["get", "business_age"], newMinAge],
-        0,
-        1,
-        100,
-        0.2,
-      ]);
-
-      this.map.setPaintProperty("businesses-layer", "circle-stroke-color", [
-        "case",
-        ["==", 0, ["-", ["get", "business_age"], newMinAge]],
-        "#1e40af",
-        "#ffffff",
-      ]);
-
-      this.map.setPaintProperty("businesses-layer", "circle-stroke-opacity", [
-        "case",
-        ["==", 0, ["-", ["get", "business_age"], newMinAge]],
-        1,
-        0,
-      ]);
-    }
+    if (isValidBusinessAge(newMinAge))
+      this.styleCirclesByBusinessAge(newMinAge);
   }
 
   getFilterByFeatureProperty(property) {
@@ -126,7 +104,29 @@ export default class extends Controller {
     return propertyFilter;
   }
 
-  isValidAge(age) {
-    return age >= 0;
+  styleCirclesByBusinessAge(businessAge) {
+    this.map.setPaintProperty("businesses-layer", "circle-opacity", [
+      "interpolate",
+      ["exponential", 0.5],
+      ["-", ["get", "business_age"], businessAge],
+      0,
+      1,
+      100,
+      0.2,
+    ]);
+
+    this.map.setPaintProperty("businesses-layer", "circle-stroke-color", [
+      "case",
+      ["==", 0, ["-", ["get", "business_age"], businessAge]],
+      "#1e40af",
+      "#ffffff",
+    ]);
+
+    this.map.setPaintProperty("businesses-layer", "circle-stroke-opacity", [
+      "case",
+      ["==", 0, ["-", ["get", "business_age"], businessAge]],
+      1,
+      0,
+    ]);
   }
 }

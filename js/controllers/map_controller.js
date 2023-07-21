@@ -1,5 +1,9 @@
 import { Controller } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js";
 import "https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js";
+import {
+  MAPTILER_BASEMAP_STYLE_JSON_URL,
+  BUSINESSES_VECTOR_TILESET_URL,
+} from "../utils/map-utils.js";
 
 export default class extends Controller {
   connect() {
@@ -7,15 +11,13 @@ export default class extends Controller {
       container: "map",
       center: [13.404, 52.52],
       zoom: 16,
-      style:
-        "https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/styles/bm_web_gry.json",
+      style: MAPTILER_BASEMAP_STYLE_JSON_URL,
     });
 
     this.map.on("load", () => {
       this.map.addSource("gewerbe", {
         type: "vector",
-        // Note that the Maptiler key is restricted to allow only necessary origins:
-        url: "https://api.maptiler.com/tiles/850fa78e-9186-4d0a-9e75-7f35c100a676/tiles.json?key=ABFU7feSA0DwvpFv68Pd",
+        url: BUSINESSES_VECTOR_TILESET_URL,
       });
 
       this.map.addLayer({

@@ -53,8 +53,9 @@ Now you can upload the tileset `tiles/data.mbtiles` to the Maptiler upload form 
 ## Todo
 
 - [ ] use better (more subtle) basemap for dataviz purposes (e.g. via Maptiler and restricting the Maptiler key to specific origins)
-- [ ] fix bug where slecting a branch seems to ignore the current year slider value
+- [x] fix bug where slecting a branch seems to ignore the current year slider value
 - [ ] only show im Handelsregister eingetragen
 - [ ] style year slider properly
 - [ ] style select menu
 - [ ] agree on focus branches
+- [ ] explore NGINX for serving pmtiles again

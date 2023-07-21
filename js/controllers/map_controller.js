@@ -14,6 +14,7 @@ export default class extends Controller {
     this.map.on("load", () => {
       this.map.addSource("gewerbe", {
         type: "vector",
+        // Note that the Maptiler key is restricted to allow only necessary origins:
         url: "https://api.maptiler.com/tiles/850fa78e-9186-4d0a-9e75-7f35c100a676/tiles.json?key=ABFU7feSA0DwvpFv68Pd",
       });
 
@@ -45,7 +46,7 @@ export default class extends Controller {
           "circle-stroke-width": 3,
         },
       });
-      this.updateFilters({});
+      this.updateFilters({ minAge: 0 });
 
       this.map.on("mouseenter", "gewerbe-layer", (e) => {
         console.log(e.features[0].properties?.branch_top_level_desc);
@@ -53,7 +54,7 @@ export default class extends Controller {
     });
   }
 
-  updateFilters({ minAge: newMinAge = 0, branch: newBranch }) {
+  updateFilters({ minAge: newMinAge, branch: newBranch }) {
     const FILTER_PROPERTIES = {
       business_age: "business_age",
       branch: "branch_top_level_desc",

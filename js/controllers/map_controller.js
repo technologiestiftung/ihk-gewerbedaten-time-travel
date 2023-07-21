@@ -89,29 +89,31 @@ export default class extends Controller {
 
     this.map.setFilter("businesses-layer", ["all", ...filters]);
 
-    this.map.setPaintProperty("businesses-layer", "circle-opacity", [
-      "interpolate",
-      ["exponential", 0.5],
-      ["-", ["get", "business_age"], newMinAge],
-      0,
-      1,
-      100,
-      0.2,
-    ]);
+    if (this.isValidAge(newMinAge)) {
+      this.map.setPaintProperty("businesses-layer", "circle-opacity", [
+        "interpolate",
+        ["exponential", 0.5],
+        ["-", ["get", "business_age"], newMinAge],
+        0,
+        1,
+        100,
+        0.2,
+      ]);
 
-    this.map.setPaintProperty("businesses-layer", "circle-stroke-color", [
-      "case",
-      ["==", 0, ["-", ["get", "business_age"], newMinAge]],
-      "#1e40af",
-      "#ffffff",
-    ]);
+      this.map.setPaintProperty("businesses-layer", "circle-stroke-color", [
+        "case",
+        ["==", 0, ["-", ["get", "business_age"], newMinAge]],
+        "#1e40af",
+        "#ffffff",
+      ]);
 
-    this.map.setPaintProperty("businesses-layer", "circle-stroke-opacity", [
-      "case",
-      ["==", 0, ["-", ["get", "business_age"], newMinAge]],
-      1,
-      0,
-    ]);
+      this.map.setPaintProperty("businesses-layer", "circle-stroke-opacity", [
+        "case",
+        ["==", 0, ["-", ["get", "business_age"], newMinAge]],
+        1,
+        0,
+      ]);
+    }
   }
 
   getFilterByFeatureProperty(property) {
@@ -122,5 +124,9 @@ export default class extends Controller {
     );
 
     return propertyFilter;
+  }
+
+  isValidAge(age) {
+    return age >= 0;
   }
 }

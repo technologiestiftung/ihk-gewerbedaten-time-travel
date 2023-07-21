@@ -1,5 +1,5 @@
 import { Controller } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js";
-import "https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js";
+import "https://unpkg.com/maplibre-gl@3.2.0/dist/maplibre-gl.js";
 import {
   MAPTILER_BASEMAP_STYLE_JSON_URL,
   BUSINESSES_VECTOR_TILESET_URL,
@@ -11,17 +11,20 @@ import {
 
 export default class extends Controller {
   connect() {
+    let protocol = new pmtiles.Protocol();
+    maplibregl.addProtocol("pmtiles", protocol.tile);
+
     this.map = new maplibregl.Map({
       container: "map",
       center: [13.404, 52.52],
-      zoom: 16,
+      zoom: 14,
       style: MAPTILER_BASEMAP_STYLE_JSON_URL,
     });
 
     this.map.on("load", () => {
       this.map.addSource("businesses", {
         type: "vector",
-        url: BUSINESSES_VECTOR_TILESET_URL,
+        url: `pmtiles://${BUSINESSES_VECTOR_TILESET_URL}`,
       });
 
       this.map.addLayer({
@@ -38,18 +41,9 @@ export default class extends Controller {
           ],
         },
         paint: {
-          "circle-color": "#ff0000",
-          "circle-radius": ["interpolate", ["linear"], ["zoom"], 11, 2, 16, 12],
-          "circle-opacity": [
-            "interpolate",
-            ["linear"],
-            ["get", BUSINESSES_TILESET_PROPERTIES.age],
-            0,
-            1,
-            100,
-            0.2,
-          ],
-          "circle-stroke-width": 3,
+          "circle-color": "#DB0FF0",
+          "circle-radius": ["interpolate", ["linear"], ["zoom"], 12, 1, 16, 12],
+          "circle-stroke-width": 2,
         },
       });
       this.updateFilters({ minAge: 0 });
@@ -117,12 +111,11 @@ export default class extends Controller {
       0.2,
     ]);
 
-    this.map.setPaintProperty("businesses-layer", "circle-stroke-color", [
-      "case",
-      ["==", 0, ["-", ["get", BUSINESSES_TILESET_PROPERTIES.age], businessAge]],
-      "#1e40af",
-      "#ffffff",
-    ]);
+    this.map.setPaintProperty(
+      "businesses-layer",
+      "circle-stroke-color",
+      "#000000"
+    );
 
     this.map.setPaintProperty("businesses-layer", "circle-stroke-opacity", [
       "case",

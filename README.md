@@ -14,41 +14,47 @@ For developement, simply start a local dev server, e.g. via:
 npx live-server
 ```
 
-You will now have a live-reloading server available at http://localhost:8080.
+You will now have a live-reloading server available at http://localhost:8080. Please substitute `localhost` with your local IP address and make sure it is included in the allowed origins for the businesses vector tileset in Maptiler.
+
+Now you can start developing at http://xxx.xxx.xxx.xxx:8080.
 
 ### Adding JavaScript
 
 If you want to add new JavaScript, take a look at the [Stimulus conventions](https://stimulus.hotwired.dev/handbook/introduction) and if you decide to add a new controller, add it in `./js/controllers/` and register it in `./js/stimulus-controllers.js`.
 
-## PMTiles tileset
+## Vector tileset
 
-We use [PMTiles](https://github.com/protomaps/PMTiles) in order to serve the dataset in the most performant way. See below the instructions for updating the tileset, should it become necessary.
+We use a vector tileset hosted on [Maptiler](https://www.maptiler.com/) to display the businesses in a performant way. In order to upload the required `.mbtiles` format, we need to generate it using [Tippecanoe](https://github.com/felt/tippecanoe).
 
-> Note that you will need to install [Tippecanoe](https://github.com/felt/tippecanoe) first if you haven't yet.
+> Note that you will need to install the **latest** version of [Tippecanoe](https://github.com/felt/tippecanoe) first if you don't have it.
+
+Create a directory for temporary files if you haven't yet (this is gitignored):
 
 ```bash
 mkdir tmp
 ```
 
+Download the latest IHK dataset as a CSV:
+
 ```bash
 curl -s -L https://media.githubusercontent.com/media/IHKBerlin/IHKBerlin_Gewerbedaten/master/data/IHKBerlin_Gewerbedaten.csv -o tmp/data.csv
 ```
 
-```bash
-tippecanoe -f -o tiles/data.pmtiles -b0 -r1 -pk -pf -y branch_top_level_desc -y business_age -l ihk ./tmp/data.csv
-```
+Feed the CSV into Tippecanoe, using some flags to ensure we display _all_ business as dots and only include the properties necessary for the vector tileset:
 
 ```bash
-rm ./tmp/data.csv
+tippecanoe -f -o tiles/data.mbtiles -b0 -r1 -pk -pf -y branch_top_level_desc -y business_age -l ihk ./tmp/data.csv
 ```
 
-> Note that we do commit this file to GitHub because it is rather small (~18MB). However, we could improve this by requiring the file from a storage solution like S3.
+Now you can upload the tileset `tiles/data.mbtiles` to the Maptiler upload form and reference it in our MapLibre code.
 
 > TODO: This could become a bash script to make it less manual work.
 
 ## Todo
 
 - [ ] use better (more subtle) basemap for dataviz purposes (e.g. via Maptiler and restricting the Maptiler key to specific origins)
+- [ ] fix bug where slecting a branch seems to ignore the current year slider value
+- [ ] only show im Handelsregister eingetragen
 - [ ] style year slider properly
 - [ ] style select menu
 - [ ] agree on focus branches

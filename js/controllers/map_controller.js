@@ -4,7 +4,10 @@ import {
   MAPTILER_BASEMAP_STYLE_JSON_URL,
   BUSINESSES_VECTOR_TILESET_URL,
 } from "../utils/map-utils.js";
-import { isValidAge as isValidBusinessAge } from "../utils/businesses-util.js";
+import {
+  isValidAge as isValidBusinessAge,
+  BUSINESSES_TILESET_PROPERTIES,
+} from "../utils/businesses-util.js";
 
 export default class extends Controller {
   connect() {
@@ -31,7 +34,7 @@ export default class extends Controller {
           "circle-sort-key": [
             "-",
             new Date().getFullYear(),
-            ["to-number", ["get", "business_age"]],
+            ["to-number", ["get", BUSINESSES_TILESET_PROPERTIES.age]],
           ],
         },
         paint: {
@@ -40,7 +43,7 @@ export default class extends Controller {
           "circle-opacity": [
             "interpolate",
             ["linear"],
-            ["get", "business_age"],
+            ["get", BUSINESSES_TILESET_PROPERTIES.age],
             0,
             1,
             100,
@@ -58,16 +61,11 @@ export default class extends Controller {
   }
 
   updateFilters({ minAge: newMinAge, branch: newBranch }) {
-    const FILTER_PROPERTIES = {
-      business_age: "business_age",
-      branch: "branch_top_level_desc",
-    };
-
     const existingAgeFilter = this.getFilterByFeatureProperty(
-      FILTER_PROPERTIES.business_age
+      BUSINESSES_TILESET_PROPERTIES.age
     );
     const existingBranchFilter = this.getFilterByFeatureProperty(
-      FILTER_PROPERTIES.branch
+      BUSINESSES_TILESET_PROPERTIES.branch
     );
 
     const getBranchFilter = (branchKey) => {
@@ -75,7 +73,11 @@ export default class extends Controller {
         case branchKey === "all":
           return null;
         case typeof branchKey === "string":
-          return ["==", ["get", FILTER_PROPERTIES.branch], branchKey];
+          return [
+            "==",
+            ["get", BUSINESSES_TILESET_PROPERTIES.branch],
+            branchKey,
+          ];
         default:
           return existingBranchFilter;
       }
@@ -83,7 +85,7 @@ export default class extends Controller {
 
     const filters = [
       newMinAge || newMinAge === 0
-        ? [">=", ["get", FILTER_PROPERTIES.business_age], newMinAge]
+        ? [">=", ["get", BUSINESSES_TILESET_PROPERTIES.age], newMinAge]
         : existingAgeFilter,
       getBranchFilter(newBranch),
     ].filter(Boolean);
@@ -108,7 +110,7 @@ export default class extends Controller {
     this.map.setPaintProperty("businesses-layer", "circle-opacity", [
       "interpolate",
       ["exponential", 0.5],
-      ["-", ["get", "business_age"], businessAge],
+      ["-", ["get", BUSINESSES_TILESET_PROPERTIES.age], businessAge],
       0,
       1,
       100,
@@ -117,14 +119,14 @@ export default class extends Controller {
 
     this.map.setPaintProperty("businesses-layer", "circle-stroke-color", [
       "case",
-      ["==", 0, ["-", ["get", "business_age"], businessAge]],
+      ["==", 0, ["-", ["get", BUSINESSES_TILESET_PROPERTIES.age], businessAge]],
       "#1e40af",
       "#ffffff",
     ]);
 
     this.map.setPaintProperty("businesses-layer", "circle-stroke-opacity", [
       "case",
-      ["==", 0, ["-", ["get", "business_age"], businessAge]],
+      ["==", 0, ["-", ["get", BUSINESSES_TILESET_PROPERTIES.age], businessAge]],
       1,
       0,
     ]);

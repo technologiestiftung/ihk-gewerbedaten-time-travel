@@ -3,9 +3,6 @@ import "https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js";
 
 export default class extends Controller {
   connect() {
-    let protocol = new pmtiles.Protocol();
-    maplibregl.addProtocol("pmtiles", protocol.tile);
-
     this.map = new maplibregl.Map({
       container: "map",
       center: [13.404, 52.52],
@@ -17,7 +14,7 @@ export default class extends Controller {
     this.map.on("load", () => {
       this.map.addSource("gewerbe", {
         type: "vector",
-        url: "pmtiles://data.pmtiles",
+        url: "https://api.maptiler.com/tiles/850fa78e-9186-4d0a-9e75-7f35c100a676/tiles.json?key=ABFU7feSA0DwvpFv68Pd",
       });
 
       this.map.addLayer({

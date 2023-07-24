@@ -31,7 +31,16 @@
     <div data-controller="map" class="map-container">
       <div id="map"></div>
     </div>
-    <div style="position: absolute; top: 2rem; left: 2rem">
+    <div
+      style="
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+        background-color: white;
+        padding: 1rem;
+        box-shadow: 0 0 4px #bbbbbb;
+      "
+    >
       <select
         name="Branchen-Auswahl"
         data-controller="select"
@@ -49,6 +58,10 @@
         </option>
         <option value="Veterinärwesen">Tiermedizin</option>
       </select>
+      <div data-controller="viz">
+        <p>Verteilung (im sichtbaren Bereich)</p>
+        <div data-viz-target="wrapper"></div>
+      </div>
     </div>
     <div
       style="position: absolute; top: 2rem; right: 2rem"

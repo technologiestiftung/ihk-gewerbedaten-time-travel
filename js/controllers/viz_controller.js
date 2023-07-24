@@ -15,7 +15,7 @@ export default class extends Controller {
     const topLevels = [];
 
     businesses.forEach((businesses) => {
-      topLevels.push(businesses.properties.branch_top_level_desc);
+      topLevels.push(businesses.properties.ihk_branch_desc);
     });
     return topLevels;
   }

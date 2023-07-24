@@ -57,7 +57,7 @@ grep -e 'im Handelsregister eingetragen' tmp/data.csv >> tmp/data-filtered.csv
 Feed the CSV into Tippecanoe, using some flags to ensure we display _all_ business as dots and only include the properties necessary for the vector tileset:
 
 ```bash
-tippecanoe -f -o tiles/data.pmtiles -b0 -r1 -pk -pf -y branch_top_level_desc -y business_age -l ihk ./tmp/data-filtered.csv
+tippecanoe -f -o tiles/data.pmtiles -b0 -r1 -pk -pf -y branch_top_level_desc -y business_age -y ihk_branch_desc -l ihk ./tmp/data-filtered.csv
 ```
 
 Now you can upload the tileset `tiles/data.pmtiles` to the S3 bucket, making sure that [correct permissions](https://protomaps.com/docs/pmtiles/cloud-storage#amazon-s3) are set.
@@ -74,3 +74,4 @@ Now you can upload the tileset `tiles/data.pmtiles` to the S3 bucket, making sur
 - [ ] agree on focus branches
 - [ ] consider adding legend
 - [ ] find better colors
+- [ ] add tooltip

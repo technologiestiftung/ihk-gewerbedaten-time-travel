@@ -3,25 +3,17 @@ import { Controller } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.j
 export default class extends Controller {
   static targets = ["input", "label", "toggle"];
 
-  static values = {
-    initialYear: String,
-    referenceYear: {
-      type: Number,
-      default: 2023,
-    },
-  };
-
   static outlets = ["map"];
 
   connect() {
-    this.updateYearLabel(this.initialYearValue);
+    this.updateYearLabel(this.initialYear);
   }
 
   change(event) {
     this.updateYearLabel(event.target.value);
 
     const selectedYear = parseInt(event.target.value, 10);
-    const minBusinessAge = this.referenceYearValue - selectedYear;
+    const minBusinessAge = this.maxYear - selectedYear;
     this.sendToAgeFilter(minBusinessAge);
   }
 
@@ -36,31 +28,25 @@ export default class extends Controller {
   toggleAutoplay(event) {
     const currentlyPlaying = event.params.playing;
 
-    switch (true) {
-      case currentlyPlaying:
-        this.stopAdvancingYear();
-        event.target.dataset.yearFilterPlayingParam = false;
-        break;
-      case !currentlyPlaying && this.inputTarget.value === "2023":
-        break;
-      default:
-        this.advanceYear();
-        event.target.dataset.yearFilterPlayingParam = true;
-        break;
+    if (
+      currentlyPlaying ||
+      parseInt(this.inputTarget.value, 10) >= this.maxYear
+    ) {
+      this.stopAdvancingYear();
+      event.target.dataset.yearFilterPlayingParam = false;
+    } else {
+      this.advanceYear();
+      event.target.dataset.yearFilterPlayingParam = true;
     }
   }
 
   advanceYear() {
     this.yearInterval = setInterval(() => {
-      const slider = document.getElementById("slider");
-      const currentSliderValue = slider.value;
-      const newYear = parseInt(currentSliderValue, 10) + 1;
+      const newYear = parseInt(this.inputTarget.value, 10) + 1;
 
-      if (newYear >= 2023) this.stopAdvancingYear();
-
-      this.sendToAgeFilter(2023 - newYear);
+      this.sendToAgeFilter(this.maxYear - newYear);
       this.updateYearLabel(newYear);
-      slider.value = newYear;
+      this.inputTarget.value = newYear;
     }, 800);
 
     this.toggleTarget.textContent = "Pause";
@@ -71,5 +57,13 @@ export default class extends Controller {
       clearInterval(this.yearInterval);
     }
     this.toggleTarget.textContent = "Play";
+  }
+
+  get maxYear() {
+    return this.inputTarget.getAttribute("max");
+  }
+
+  get initialYear() {
+    return this.inputTarget.value;
   }
 }

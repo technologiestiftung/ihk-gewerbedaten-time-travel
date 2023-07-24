@@ -28,10 +28,7 @@ export default class extends Controller {
   toggleAutoplay(event) {
     const currentlyPlaying = event.params.playing;
 
-    if (
-      currentlyPlaying ||
-      parseInt(this.inputTarget.value, 10) >= this.maxYear
-    ) {
+    if (currentlyPlaying) {
       this.stopAdvancingYear();
       event.target.dataset.yearFilterPlayingParam = false;
     } else {
@@ -43,6 +40,8 @@ export default class extends Controller {
   advanceYear() {
     this.yearInterval = setInterval(() => {
       const newYear = parseInt(this.inputTarget.value, 10) + 1;
+
+      if (newYear === this.maxYear) this.stopAdvancingYear();
 
       this.sendToAgeFilter(this.maxYear - newYear);
       this.updateYearLabel(newYear);
@@ -60,7 +59,7 @@ export default class extends Controller {
   }
 
   get maxYear() {
-    return this.inputTarget.getAttribute("max");
+    return parseInt(this.inputTarget.getAttribute("max"), 10);
   }
 
   get initialYear() {

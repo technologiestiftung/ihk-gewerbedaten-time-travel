@@ -14,11 +14,12 @@ export default class extends Controller {
 
     const selectedYear = parseInt(event.target.value, 10);
     const minBusinessAge = this.maxYear - selectedYear;
-    this.sendToAgeFilter(minBusinessAge);
+    this.sendToMap(minBusinessAge);
   }
 
-  sendToAgeFilter(minAge) {
+  sendToMap(minAge) {
     this.mapOutlet.updateFilters({ minAge });
+    this.mapOutlet.sendBusinessesToViz();
   }
 
   updateYearLabel(year) {
@@ -43,7 +44,7 @@ export default class extends Controller {
 
       if (newYear === this.maxYear) this.stopAdvancingYear();
 
-      this.sendToAgeFilter(this.maxYear - newYear);
+      this.sendToMap(this.maxYear - newYear);
       this.updateYearLabel(newYear);
       this.inputTarget.value = newYear;
     }, 800);

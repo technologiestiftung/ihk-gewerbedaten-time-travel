@@ -54,11 +54,9 @@ export default class extends Controller {
         // console.log(e.features[0].properties?.branch_top_level_desc);
       });
 
-      this.map.on("moveend", (event) => {
-        const renderedBusinesses = this.map.queryRenderedFeatures({
-          layers: ["businesses-layer"],
-        });
-        this.vizOutlet.updateViz(renderedBusinesses);
+      this.map.on("moveend", () => {
+        const renderedBusinesses = this.visibleFeatures;
+        this.sendCurrentBusinessesToViz(renderedBusinesses);
       });
     });
   }
@@ -132,5 +130,15 @@ export default class extends Controller {
       1,
       0,
     ]);
+  }
+
+  get visibleFeatures() {
+    return this.map.queryRenderedFeatures({
+      layers: ["businesses-layer"],
+    });
+  }
+
+  sendCurrentBusinessesToViz(businesses) {
+    this.vizOutlet.updateViz(businesses);
   }
 }

@@ -10,6 +10,8 @@ import {
 } from "../utils/businesses-util.js";
 
 export default class extends Controller {
+  static outlets = ["viz"];
+
   connect() {
     let protocol = new pmtiles.Protocol();
     maplibregl.addProtocol("pmtiles", protocol.tile);
@@ -49,7 +51,14 @@ export default class extends Controller {
       this.updateFilters({ minAge: 0 });
 
       this.map.on("mouseenter", "businesses-layer", (e) => {
-        console.log(e.features[0].properties?.branch_top_level_desc);
+        // console.log(e.features[0].properties?.branch_top_level_desc);
+      });
+
+      this.map.on("moveend", (event) => {
+        const renderedBusinesses = this.map.queryRenderedFeatures({
+          layers: ["businesses-layer"],
+        });
+        this.vizOutlet.updateViz(renderedBusinesses);
       });
     });
   }

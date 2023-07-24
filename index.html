@@ -28,7 +28,7 @@
     </style>
   </head>
   <body>
-    <div data-controller="map" class="map-container">
+    <div data-controller="map" data-map-viz-outlet=".viz" class="map-container">
       <div id="map"></div>
     </div>
     <div
@@ -58,9 +58,9 @@
         </option>
         <option value="Veterinärwesen">Tiermedizin</option>
       </select>
-      <div data-controller="viz">
+      <div data-controller="viz" class="viz">
         <p>Verteilung (im sichtbaren Bereich)</p>
-        <div data-viz-target="wrapper"></div>
+        <ul data-viz-target="wrapper"></ul>
       </div>
     </div>
     <div

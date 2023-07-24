@@ -50,6 +50,8 @@ export default class extends Controller {
       });
       this.updateFilters({ minAge: 0 });
 
+      this.sendBusinessesToViz();
+
       this.map.on("mouseenter", "businesses-layer", (e) => {
         // console.log(e.features[0].properties?.branch_top_level_desc);
       });

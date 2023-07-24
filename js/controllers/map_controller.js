@@ -7,10 +7,11 @@ import {
 import {
   isValidAge as isValidBusinessAge,
   BUSINESSES_TILESET_PROPERTIES,
+  getSelectedAge,
 } from "../utils/businesses-util.js";
 
 export default class extends Controller {
-  static outlets = ["viz"];
+  static outlets = ["viz", "year"];
 
   connect() {
     let protocol = new pmtiles.Protocol();
@@ -50,14 +51,15 @@ export default class extends Controller {
       });
       this.updateFilters({ minAge: 0 });
 
-      this.sendBusinessesToViz();
+      this.sendBusinessesToViz({ age: 0 });
 
       this.map.on("mouseenter", "businesses-layer", (e) => {
-        // console.log(e.features[0].properties?.branch_top_level_desc);
+        console.log("Branche:", e.features[0].properties.ihk_branch_desc);
+        console.log("Alter:", e.features[0].properties.business_age);
       });
 
       this.map.on("moveend", () => {
-        this.sendBusinessesToViz();
+        this.sendBusinessesToViz({ age: getSelectedAge() });
       });
     });
   }
@@ -133,17 +135,35 @@ export default class extends Controller {
     ]);
   }
 
-  renderedBusinesses() {
+  renderedBusinesses(filter) {
     return this.map.queryRenderedFeatures({
       layers: ["businesses-layer"],
+      filter: filter,
     });
   }
 
-  sendBusinessesToViz() {
-    const mapIdleListener = this.map.once("idle", () => {
-      const renderedBusinesses = this.renderedBusinesses();
+  sendBusinessesToViz({ age }) {
+    const updateViz = () => {
+      const filter = isValidBusinessAge(age)
+        ? ["==", ["get", "business_age"], age]
+        : null;
+      const renderedBusinesses = this.renderedBusinesses(filter);
       this.vizOutlet.updateViz(renderedBusinesses);
-    });
-    this.map.off("idle", mapIdleListener);
+    };
+
+    const mapIsLoaded = this.map.loaded();
+
+    if (mapIsLoaded) {
+      updateViz();
+    } else {
+      const idleListener = () => {
+        updateViz();
+        removeIdleListener();
+      };
+
+      const removeIdleListener = () => this.map.off("idle", idleListener);
+
+      this.map.on("idle", idleListener);
+    }
   }
 }

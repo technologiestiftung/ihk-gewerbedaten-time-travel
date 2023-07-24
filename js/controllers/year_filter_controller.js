@@ -6,20 +6,20 @@ export default class extends Controller {
   static outlets = ["map"];
 
   connect() {
-    this.updateYearLabel(this.initialYear);
+    this.updateYearLabel(this.selectedYear);
   }
 
   change(event) {
     this.updateYearLabel(event.target.value);
 
     const selectedYear = parseInt(event.target.value, 10);
-    const minBusinessAge = this.maxYear - selectedYear;
-    this.sendToMap(minBusinessAge);
+    const selectedAge = this.maxYear - selectedYear;
+    this.sendToOutlets(selectedAge);
   }
 
-  sendToMap(minAge) {
-    this.mapOutlet.updateFilters({ minAge });
-    this.mapOutlet.sendBusinessesToViz();
+  sendToOutlets(selectedAge) {
+    this.mapOutlet.updateFilters({ minAge: selectedAge });
+    this.mapOutlet.sendBusinessesToViz({ age: selectedAge });
   }
 
   updateYearLabel(year) {
@@ -44,7 +44,7 @@ export default class extends Controller {
 
       if (newYear === this.maxYear) this.stopAdvancingYear();
 
-      this.sendToMap(this.maxYear - newYear);
+      this.sendToOutlets(this.maxYear - newYear);
       this.updateYearLabel(newYear);
       this.inputTarget.value = newYear;
     }, 800);
@@ -63,7 +63,11 @@ export default class extends Controller {
     return parseInt(this.inputTarget.getAttribute("max"), 10);
   }
 
-  get initialYear() {
-    return this.inputTarget.value;
+  get selectedYear() {
+    return parseInt(this.inputTarget.value, 10);
+  }
+
+  get selectedAge() {
+    return this.maxYear - this.selectedYear;
   }
 }

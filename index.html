@@ -28,7 +28,12 @@
     </style>
   </head>
   <body>
-    <div data-controller="map" data-map-viz-outlet=".viz" class="map-container">
+    <div
+      data-controller="map"
+      data-map-viz-outlet=".viz"
+      data-map-year-outlet=".year-filter"
+      class="map-container"
+    >
       <div id="map"></div>
     </div>
     <div
@@ -60,7 +65,7 @@
         <option value="Veterinärwesen">Tiermedizin</option>
       </select>
       <div data-controller="viz" class="viz">
-        <p>Verteilung (im sichtbaren Bereich)</p>
+        <p>Top-Branchen im Kartenausschnitt im ausgewählten Jahr:</p>
         <ul data-viz-target="wrapper"></ul>
       </div>
     </div>
@@ -68,6 +73,7 @@
       style="position: absolute; top: 2rem; right: 2rem"
       data-controller="year-filter"
       data-year-filter-map-outlet=".map-container"
+      class="year-filter"
     >
       <h1
         data-year-filter-target="label"

@@ -44,9 +44,9 @@ export default class extends Controller {
           ],
         },
         paint: {
-          "circle-color": "#DB0FF0",
+          "circle-color": "#e60032",
           "circle-radius": ["interpolate", ["linear"], ["zoom"], 12, 1, 16, 12],
-          "circle-stroke-width": 2,
+          "circle-stroke-width": 1,
         },
       });
       this.updateFilters({ minAge: 0 });
@@ -124,7 +124,7 @@ export default class extends Controller {
     this.map.setPaintProperty(
       "businesses-layer",
       "circle-stroke-color",
-      "#000000"
+      "#ffffff"
     );
 
     this.map.setPaintProperty("businesses-layer", "circle-stroke-opacity", [

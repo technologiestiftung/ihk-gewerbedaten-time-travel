@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de" class="sl-theme-light">
   <head>
-    <title>IHK Dataviz</title>
+    <title>50 Jahre Berliner Top-Gewerbe</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
@@ -9,11 +9,11 @@
       href="https://unpkg.com/maplibre-gl@3.2.0/dist/maplibre-gl.css"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="css/style.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.5.2/cdn/themes/light.css"
     />
+    <link rel="stylesheet" href="css/style.css" />
     <script src="https://unpkg.com/pmtiles@2.9.0/dist/index.js"></script>
     <script
       type="module"
@@ -22,24 +22,16 @@
     ></script>
   </head>
   <body>
-    <div
+    <main
       data-controller="map"
       data-map-viz-outlet=".viz"
       data-map-year-outlet=".year-filter"
       class="map-container"
     >
       <div id="map"></div>
-    </div>
-    <div
-      style="
-        position: absolute;
-        top: 2rem;
-        left: 2rem;
-        background-color: white;
-        padding: 1rem;
-        box-shadow: 0 0 4px #bbbbbb;
-      "
-    >
+    </main>
+    <aside>
+      <h1 class="title">50 Jahre Berliner Top-Gewerbe</h1>
       <sl-select
         data-controller="select"
         data-select-map-outlet=".map-container"
@@ -48,20 +40,22 @@
       >
         <sl-option value="all">Alle Branchen</sl-option>
         <sl-option value="Gastronomie">Gastronomie</sl-option>
+        <sl-option value="Erziehung_u._Unterricht"
+          >Erziehung, Bildung, Unterricht</sl-option
+        >
         <sl-option value="Kreative,_künstlerische_u._unterhaltende_Tätigkeiten"
-          >Kreativbranche / Kunst</sl-option
+          >Kunst und Unterhaltung</sl-option
         >
-        <sl-option value="Gesundheitswesen">Gesundheitswesen</sl-option>
-        <sl-option value="Spiel-,_Wett-_u._Lotteriewesen"
-          >Spiel-, Wett- u. Lotteriewesen</sl-option
+        <sl-option value="Sozialwesen_(ohne_Heime)">Sozialwesen</sl-option>
+        <sl-option value="Einzelhandel_(ohne_Handel_mit_Kraftfahrzeugen)"
+          >Einzelhandel</sl-option
         >
-        <sl-option value="Veterinärwesen">Tiermedizin</sl-option>
       </sl-select>
       <div data-controller="viz" class="viz">
-        <p>Top-Branchen im Kartenausschnitt im ausgewählten Jahr:</p>
+        <div>Top-Branchen im Kartenausschnitt im ausgewählten Jahr:</div>
         <ul data-viz-target="wrapper"></ul>
       </div>
-    </div>
+    </aside>
     <div
       style="position: fixed; bottom: 3rem; left: 0; width: 100vw"
       data-controller="year-filter"
@@ -80,11 +74,14 @@
           Play
         </sl-button>
         <sl-range
-          min="1970"
+          min="1973"
           max="2023"
           step="1"
-          value="2023"
-          style="--track-color-active: black; --track-color-inactive: black"
+          value="2000"
+          style="
+            --track-color-active: var(--sl-color-primary-500);
+            --track-color-inactive: var(--sl-color-neutral-0);
+          "
           data-year-filter-target="input"
         ></sl-range>
         <div data-year-filter-target="label" id="year"></div>

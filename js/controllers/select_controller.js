@@ -20,6 +20,6 @@ export default class extends Controller {
   }
 
   disconnect() {
-    this.element.removeEventListener(this.slChangeListener);
+    this.element.removeEventListener("sl-change", this.slChangeListener);
   }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="sl-theme-light">
   <head>
     <title>IHK Dataviz</title>
     <meta charset="utf-8" />
@@ -9,13 +9,20 @@
       href="https://unpkg.com/maplibre-gl@3.2.0/dist/maplibre-gl.css"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.5.2/cdn/themes/light.css"
+    />
     <script src="https://unpkg.com/pmtiles@2.9.0/dist/index.js"></script>
-    <script type="module" src="js/stimulus-controllers.js"></script>
+    <script type="module" src="js/index.js"></script>
     <style>
       body {
         margin: 0;
         width: 100vw;
         height: 100vh;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
       }
       .map-container {
         width: 100%;
@@ -46,24 +53,23 @@
         box-shadow: 0 0 4px #bbbbbb;
       "
     >
-      <select
-        name="Branchen-Auswahl"
+      <sl-select
         data-controller="select"
         data-select-map-outlet=".map-container"
         data-select-viz-outlet=".viz"
-        data-action="change->select#change"
+        value="all"
       >
-        <option value="all">Alle Branchen</option>
-        <option value="Gastronomie">Restaurants, Cafés etc.</option>
-        <option value="Kreative, künstlerische u. unterhaltende Tätigkeiten">
-          Kreativbranche / Kunst
-        </option>
-        <option value="Gesundheitswesen">Gesundheitswesen</option>
-        <option value="Spiel-, Wett- u. Lotteriewesen">
-          Spiel-, Wett- u. Lotteriewesen
-        </option>
-        <option value="Veterinärwesen">Tiermedizin</option>
-      </select>
+        <sl-option value="all">Alle Branchen</sl-option>
+        <sl-option value="Gastronomie">Gastronomie</sl-option>
+        <sl-option value="Kreative,_künstlerische_u._unterhaltende_Tätigkeiten"
+          >Kreativbranche / Kunst</sl-option
+        >
+        <sl-option value="Gesundheitswesen">Gesundheitswesen</sl-option>
+        <sl-option value="Spiel-,_Wett-_u._Lotteriewesen"
+          >Spiel-, Wett- u. Lotteriewesen</sl-option
+        >
+        <sl-option value="Veterinärwesen">Tiermedizin</sl-option>
+      </sl-select>
       <div data-controller="viz" class="viz">
         <p>Top-Branchen im Kartenausschnitt im ausgewählten Jahr:</p>
         <ul data-viz-target="wrapper"></ul>

@@ -14,3 +14,7 @@ export const getSelectedAge = () => {
 
   return parseInt(maxYear, 10) - parseInt(selectedYear, 10);
 };
+
+export const replaceUnderscoresWithSpaces = (input) => {
+  return input.replaceAll("_", " ");
+};

@@ -4,6 +4,9 @@ import SelectController from "./controllers/select_controller.js";
 import MapController from "./controllers/map_controller.js";
 import VizController from "./controllers/viz_controller.js";
 
+// Shoelace UI components:
+import "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.5.2/cdn/shoelace.js";
+
 window.Stimulus = Application.start();
 
 Stimulus.register("year-filter", YearFilterController);

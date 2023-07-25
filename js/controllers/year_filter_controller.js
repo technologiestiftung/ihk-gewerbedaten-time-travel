@@ -9,12 +9,28 @@ export default class extends Controller {
     this.updateYearLabel(this.selectedYear);
   }
 
-  change(event) {
-    this.updateYearLabel(event.target.value);
+  inputTargetConnected(element) {
+    this.slChangeListener = element.addEventListener("sl-change", (event) => {
+      this.updateYearLabel(event.target.value);
 
-    const selectedYear = parseInt(event.target.value, 10);
-    const selectedAge = this.maxYear - selectedYear;
-    this.sendToOutlets(selectedAge);
+      const selectedYear = parseInt(event.target.value, 10);
+      const selectedAge = this.maxYear - selectedYear;
+      this.sendToOutlets(selectedAge);
+    });
+  }
+
+  inputTargetDisconnected(element) {
+    element.removeEventListener("sl-change", this.slChangeListener);
+  }
+
+  toggleTargetConnected(element) {
+    this.clickListener = element.addEventListener("click", (event) => {
+      this.toggleAutoplay(event);
+    });
+  }
+
+  toggleTargetDisconnected(element) {
+    element.removeEventListener("click", this.clickListener);
   }
 
   sendToOutlets(selectedAge) {
@@ -27,14 +43,14 @@ export default class extends Controller {
   }
 
   toggleAutoplay(event) {
-    const currentlyPlaying = event.params.playing;
+    const currentlyPlaying = event.currentTarget.dataset.playing === "true";
 
     if (currentlyPlaying) {
       this.stopAdvancingYear();
-      event.target.dataset.yearFilterPlayingParam = false;
+      event.currentTarget.dataset.playing = false;
     } else {
       this.advanceYear();
-      event.target.dataset.yearFilterPlayingParam = true;
+      event.currentTarget.dataset.playing = true;
     }
   }
 

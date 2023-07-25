@@ -8,7 +8,7 @@ export const isValidAge = (age) => {
 };
 
 export const getSelectedAge = () => {
-  const yearInput = document.querySelector(".year-filter input");
+  const yearInput = document.querySelector(".year-filter sl-range");
   const maxYear = yearInput.getAttribute("max");
   const selectedYear = yearInput.value;
 

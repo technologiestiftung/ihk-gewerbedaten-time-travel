@@ -70,8 +70,11 @@ Now you can upload the tileset `tiles/data.pmtiles` to the S3 bucket, making sur
 - [x] fix bug where slecting a branch seems to ignore the current year slider value
 - [x] only show im Handelsregister eingetragen
 - [ ] style year slider properly
-- [ ] style select menu
-- [ ] agree on focus branches
+- [x] style select menu
+- [x] agree on focus branches
 - [ ] consider adding legend
-- [ ] find better colors
-- [ ] add tooltip
+- [x] find better colors
+- [ ] refactor viz controller
+- [ ] make circles bigger if category is selected (as opposed to all branches)
+- [x] darker backdrop behind title
+- [ ] move select generation into JS

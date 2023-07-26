@@ -4,11 +4,11 @@ export default class extends Controller {
   static targets = ["wrapper"];
 
   updateViz(businesses) {
-    const topLevels = this.groupByTopLevel(businesses);
-    const count = this.countOccurrences(topLevels);
-    const sorted = this.sortByOccurrence(count);
-    const topTenBranches = sorted.slice(0, 3);
-    this.insertViz(topTenBranches);
+    const topLevelBranches = this.groupByTopLevel(businesses);
+    const countedBranches = this.countOccurrences(topLevelBranches);
+    const sortedBranches = this.sortByOccurrences(countedBranches);
+    const topBranches = sortedBranches.slice(0, 3);
+    this.insertViz(topBranches);
   }
 
   groupByTopLevel(businesses) {
@@ -20,26 +20,28 @@ export default class extends Controller {
     return topLevels;
   }
 
-  countOccurrences(topLevels) {
+  countOccurrences(branches) {
     const count = (arr) =>
       arr.reduce((ac, a) => ((ac[a] = ac[a] + 1 || 1), ac), {});
-    return count(topLevels);
+    return count(branches);
   }
 
-  sortByOccurrence(topLevels) {
-    return Object.entries(topLevels).sort((a, b) => {
-      const aCount = a[1];
-      const bCount = b[1];
-      return bCount - aCount;
-    });
+  sortByOccurrences(branches) {
+    return Object.entries(branches).sort(
+      ([, occurrencesForA], [, occurrencesForB]) => {
+        return occurrencesForB - occurrencesForA;
+      }
+    );
   }
 
   insertViz(topBranches) {
     const maxOccurences = topBranches
       .map(([_, occurrences]) => occurrences)
-      .sort((a, b) => a < b)[0];
+      .sort(
+        (occurrencesForA, occurrencesForB) => occurrencesForA < occurrencesForB
+      )[0];
 
-    const getWidthByOccurrences = (occurrences) => {
+    const getBarWidthByOccurrences = (occurrences) => {
       return (100 / maxOccurences) * occurrences;
     };
 
@@ -64,7 +66,7 @@ export default class extends Controller {
 
       const barElement = document.createElement("span");
       barElement.classList.add("viz__bar");
-      barElement.style.width = `${getWidthByOccurrences(occurrences)}%`;
+      barElement.style.width = `${getBarWidthByOccurrences(occurrences)}%`;
 
       wrapper.appendChild(labelTooltipWrapper);
       wrapper.appendChild(occurrencesElement);

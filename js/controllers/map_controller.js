@@ -21,6 +21,8 @@ export default class extends Controller {
       container: "map",
       center: [13.404, 52.52],
       zoom: 13,
+      maxZoom: 16.5,
+      minZoom: 11.5,
       style: MAPTILER_BASEMAP_STYLE_JSON_URL,
     });
 

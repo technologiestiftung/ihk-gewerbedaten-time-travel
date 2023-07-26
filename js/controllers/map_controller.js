@@ -1,4 +1,4 @@
-import { Controller } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js";
+import { Controller } from "https://unpkg.com/@hotwired/stimulus@3.2.1/dist/stimulus.js";
 import "https://unpkg.com/maplibre-gl@3.2.0/dist/maplibre-gl.js";
 import {
   MAPTILER_BASEMAP_STYLE_JSON_URL,

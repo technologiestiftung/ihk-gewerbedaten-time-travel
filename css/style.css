@@ -195,6 +195,7 @@ body {
 }
 
 .viz__wrapper {
+  width: 100%;
   padding: 0;
   margin: var(--sl-spacing-medium) 0 0;
   display: grid;

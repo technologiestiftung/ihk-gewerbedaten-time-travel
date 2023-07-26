@@ -98,5 +98,21 @@
         ></div>
       </div>
     </div>
+    <div data-controller="dialog">
+      <sl-icon-button
+        name="info"
+        label="Infos zum Projekt"
+        class="infos__button"
+        data-action="click->dialog#show"
+      ></sl-icon-button>
+      <sl-dialog
+        label="Dialog"
+        class="dialog-width"
+        style="--width: 50vw"
+        data-dialog-target="dialog"
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </sl-dialog>
+    </div>
   </body>
 </html>

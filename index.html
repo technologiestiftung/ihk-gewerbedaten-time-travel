@@ -54,11 +54,13 @@
           <sl-option value="Verlagswesen">Verlagswesen</sl-option>
         </sl-select>
         <div data-controller="viz" class="viz">
-          <div>
-            Im Kartenausschnitt waren die Top-Branchen im ausgewählten Jahr:
-          </div>
-          <figure data-viz-target="wrapper" class="viz__wrapper">
-            <sl-spinner style="justify-self: center"></sl-spinner>
+          <figure class="viz__figure">
+            <figcaption class="viz__figcaption">
+              Im Kartenausschnitt waren die Top-Branchen im ausgewählten Jahr:
+            </figcaption>
+            <div data-viz-target="wrapper" class="viz__figure-content">
+              <sl-spinner style="justify-self: center"></sl-spinner>
+            </div>
           </figure>
         </div>
       </div>

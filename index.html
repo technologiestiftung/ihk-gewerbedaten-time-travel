@@ -24,21 +24,21 @@
   <body>
     <main
       data-controller="map"
-      data-map-viz-outlet=".viz"
+      data-map-viz-outlet=".sidebar__viz"
       data-map-year-outlet=".year-filter"
-      class="map-container"
+      class="map"
     >
-      <div id="map"></div>
+      <div id="map" class="map__wrapper"></div>
     </main>
-    <aside>
-      <div>
-        <h1 class="title">50 Jahre Berliner Top-Gewerbe</h1>
+    <div aria-hidden="true" class="sidebar__backdrop"></div>
+    <aside class="sidebar">
+      <div class="sidebar__wrapper">
+        <h1 class="sidebar__title">50 Jahre Berliner Top-Gewerbe</h1>
         <sl-select
           data-controller="select"
-          data-select-map-outlet=".map-container"
-          data-select-viz-outlet=".viz"
+          data-select-map-outlet=".map"
+          data-select-viz-outlet=".sidebar__viz"
           value="all"
-          class="aside-section"
         >
           <sl-option value="all">Alle Branchen</sl-option>
           <sl-option value="Gastronomie">Gastronomie</sl-option>
@@ -53,7 +53,7 @@
           <sl-option value="Beherbergung">Beherbergung</sl-option>
           <sl-option value="Verlagswesen">Verlagswesen</sl-option>
         </sl-select>
-        <div data-controller="viz" class="aside-section viz">
+        <div data-controller="viz" class="sidebar__viz">
           <div>Häufigste Gründungen nach Branchen im Kartenausschnitt:</div>
           <ul data-viz-target="wrapper"></ul>
         </div>
@@ -62,10 +62,10 @@
     <div
       style="position: fixed; bottom: 3rem; left: 0; width: 100vw"
       data-controller="year-filter"
-      data-year-filter-map-outlet=".map-container"
+      data-year-filter-map-outlet=".map"
       class="year-filter"
     >
-      <div class="wrapper">
+      <div class="year-filter__wrapper">
         <sl-button
           disabled
           variant="default"
@@ -87,7 +87,11 @@
           "
           data-year-filter-target="input"
         ></sl-range>
-        <div data-year-filter-target="label" id="year"></div>
+        <div
+          data-year-filter-target="label"
+          class="year-filter__year-label"
+          id="year"
+        ></div>
       </div>
     </div>
   </body>

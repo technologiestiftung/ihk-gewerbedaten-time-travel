@@ -69,12 +69,12 @@ Now you can upload the tileset `tiles/data.pmtiles` to the S3 bucket, making sur
 - [x] use better (more subtle) basemap for dataviz purposes (e.g. via Maptiler and restricting the Maptiler key to specific origins)
 - [x] fix bug where slecting a branch seems to ignore the current year slider value
 - [x] only show im Handelsregister eingetragen
-- [ ] style year slider properly
+- [x] style year slider properly
 - [x] style select menu
 - [x] agree on focus branches
 - [ ] consider adding legend
 - [x] find better colors
-- [ ] refactor viz controller
-- [ ] make circles bigger if category is selected (as opposed to all branches)
+- [x] refactor viz controller
 - [x] darker backdrop behind title
 - [ ] move select generation into JS
+- [ ] more docs

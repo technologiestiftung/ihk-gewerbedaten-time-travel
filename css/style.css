@@ -17,6 +17,8 @@
   --sl-color-red-900: #2e000a;
   --sl-color-red-950: #170005;
 
+  --custom-color-map-bg-rgb-values: 12, 24, 59;
+
   --sl-color-primary-50: var(--sl-color-red-50);
   --sl-color-primary-100: var(--sl-color-red-100);
   --sl-color-primary-200: var(--sl-color-red-200);
@@ -62,7 +64,7 @@ body {
 .map__wrapper {
   height: 100%;
   width: 100%;
-  background-color: #0c183b;
+  background-color: rgb(var(--custom-color-map-bg-rgb-values));
 }
 
 /* 
@@ -89,6 +91,20 @@ body {
   border-radius: var(--sl-border-radius-large);
   border: 1px solid var(--sl-color-neutral-0);
   box-shadow: var(--sl-shadow-large);
+}
+
+.year-filter__backdrop {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 11rem;
+  pointer-events: none;
+  width: 100%;
+  background-image: linear-gradient(
+    to top,
+    rgba(var(--custom-color-map-bg-rgb-values), 1),
+    rgba(var(--custom-color-map-bg-rgb-values), 0)
+  );
 }
 
 /* 
@@ -118,8 +134,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  opacity: 0.5;
-  height: 11rem;
+  height: 10rem;
   pointer-events: none;
 }
 
@@ -128,8 +143,8 @@ body {
     width: 100%;
     background-image: linear-gradient(
       to bottom,
-      rgba(25, 25, 43, 1),
-      rgba(25, 25, 43, 0)
+      rgba(var(--custom-color-map-bg-rgb-values), 1),
+      rgba(var(--custom-color-map-bg-rgb-values), 0)
     );
   }
 }
@@ -139,8 +154,8 @@ body {
     width: 24rem;
     background-image: linear-gradient(
       to right,
-      rgba(25, 25, 43, 1),
-      rgba(25, 25, 43, 0)
+      rgba(var(--custom-color-map-bg-rgb-values), 1),
+      rgba(var(--custom-color-map-bg-rgb-values), 0)
     );
   }
 }

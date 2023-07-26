@@ -49,13 +49,13 @@ export default class extends Controller {
           "circle-stroke-width": 1,
         },
       });
-      this.updateFilters({ minAge: 0 });
 
-      this.sendBusinessesToViz({ age: 0 });
+      this.updateFilters({ minAge: getSelectedAge() });
+      this.sendBusinessesToViz({ age: getSelectedAge() });
 
       this.map.on("mouseenter", "businesses-layer", (e) => {
-        console.log("Branche:", e.features[0].properties.ihk_branch_desc);
-        console.log("Alter:", e.features[0].properties.business_age);
+        // console.log("Branche:", e.features[0].properties.ihk_branch_desc);
+        // console.log("Alter:", e.features[0].properties.business_age);
       });
 
       this.map.on("moveend", () => {

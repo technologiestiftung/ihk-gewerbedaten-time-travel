@@ -47,7 +47,15 @@ export default class extends Controller {
         },
         paint: {
           "circle-color": "#e60032",
-          "circle-radius": ["interpolate", ["linear"], ["zoom"], 12, 1, 16, 12],
+          "circle-radius": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            11.5,
+            4,
+            16.5,
+            14,
+          ],
           "circle-stroke-width": 1,
         },
       });

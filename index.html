@@ -31,29 +31,32 @@
       <div id="map"></div>
     </main>
     <aside>
-      <h1 class="title">50 Jahre Berliner Top-Gewerbe</h1>
-      <sl-select
-        data-controller="select"
-        data-select-map-outlet=".map-container"
-        data-select-viz-outlet=".viz"
-        value="all"
-      >
-        <sl-option value="all">Alle Branchen</sl-option>
-        <sl-option value="Gastronomie">Gastronomie</sl-option>
-        <sl-option value="Erziehung_u._Unterricht"
-          >Erziehung, Bildung, Unterricht</sl-option
+      <div>
+        <h1 class="title">50 Jahre Berliner Top-Gewerbe</h1>
+        <sl-select
+          data-controller="select"
+          data-select-map-outlet=".map-container"
+          data-select-viz-outlet=".viz"
+          value="all"
+          class="aside-section"
         >
-        <sl-option value="Kreative,_künstlerische_u._unterhaltende_Tätigkeiten"
-          >Kunst und Unterhaltung</sl-option
-        >
-        <sl-option value="Sozialwesen_(ohne_Heime)">Sozialwesen</sl-option>
-        <sl-option value="Einzelhandel_(ohne_Handel_mit_Kraftfahrzeugen)"
-          >Einzelhandel</sl-option
-        >
-      </sl-select>
-      <div data-controller="viz" class="viz">
-        <div>Top-Branchen im Kartenausschnitt im ausgewählten Jahr:</div>
-        <ul data-viz-target="wrapper"></ul>
+          <sl-option value="all">Alle Branchen</sl-option>
+          <sl-option value="Gastronomie">Gastronomie</sl-option>
+          <sl-option
+            value="Erbringung_v._Dienstleistungen_der_Informationstechnologie"
+            >Informationstechnologie</sl-option
+          >
+          <sl-option
+            value="Kreative,_künstlerische_u._unterhaltende_Tätigkeiten"
+            >Kreativbranche, Kunst, Unterhaltung</sl-option
+          >
+          <sl-option value="Beherbergung">Beherbergung</sl-option>
+          <sl-option value="Verlagswesen">Verlagswesen</sl-option>
+        </sl-select>
+        <div data-controller="viz" class="aside-section viz">
+          <div>Häufigste Gründungen nach Branchen im Kartenausschnitt:</div>
+          <ul data-viz-target="wrapper"></ul>
+        </div>
       </div>
     </aside>
     <div

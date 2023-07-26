@@ -66,7 +66,8 @@ export default class extends Controller {
     }, 1200);
 
     this.mapOutlet.toggleInteractions({ on: false });
-    this.toggleTarget.textContent = "Pause";
+    this.toggleTarget.setAttribute("name", "pause");
+    this.toggleTarget.setAttribute("label", "Zeitstrahl pausieren");
   }
 
   stopAdvancingYear() {
@@ -75,7 +76,8 @@ export default class extends Controller {
     }
 
     this.mapOutlet.toggleInteractions({ on: true });
-    this.toggleTarget.textContent = "Play";
+    this.toggleTarget.setAttribute("name", "play");
+    this.toggleTarget.setAttribute("label", "Zeitstrahl aktivieren");
   }
 
   get maxYear() {

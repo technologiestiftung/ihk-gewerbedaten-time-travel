@@ -176,4 +176,26 @@ export default class extends Controller {
       this.map.on("idle", idleListener);
     }
   }
+
+  toggleInteractions({ on = false }) {
+    if (!this.map) return;
+
+    const MAP_INTERACTIONS = [
+      "scrollZoom",
+      "boxZoom",
+      "dragRotate",
+      "dragPan",
+      "keyboard",
+      "doubleClickZoom",
+      "touchZoomRotate",
+    ];
+
+    if (on) {
+      MAP_INTERACTIONS.forEach((interaction) => this.map[interaction].enable());
+    } else {
+      MAP_INTERACTIONS.forEach((interaction) =>
+        this.map[interaction].disable()
+      );
+    }
+  }
 }

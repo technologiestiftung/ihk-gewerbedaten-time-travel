@@ -63,8 +63,9 @@ export default class extends Controller {
       this.sendToOutlets(this.maxYear - newYear);
       this.updateYearLabel(newYear);
       this.inputTarget.value = newYear;
-    }, 800);
+    }, 1200);
 
+    this.mapOutlet.toggleInteractions({ on: false });
     this.toggleTarget.textContent = "Pause";
   }
 
@@ -72,6 +73,8 @@ export default class extends Controller {
     if (this.yearInterval) {
       clearInterval(this.yearInterval);
     }
+
+    this.mapOutlet.toggleInteractions({ on: true });
     this.toggleTarget.textContent = "Play";
   }
 

@@ -34,15 +34,45 @@ export default class extends Controller {
     });
   }
 
-  insertViz(counts) {
-    const newChildren = [];
+  insertViz(topBranches) {
+    const maxOccurences = topBranches
+      .map(([_, occurrences]) => occurrences)
+      .sort((a, b) => a < b)[0];
 
-    counts.forEach((countEl) => {
-      const li = document.createElement("li");
-      li.textContent = `${countEl[0]} (${countEl[1]})`;
-      newChildren.push(li);
+    const getWidthByOccurrences = (occurrences) => {
+      return (100 / maxOccurences) * occurrences;
+    };
+
+    const vizChildren = [];
+
+    topBranches.forEach(([branch, occurrences]) => {
+      const wrapper = document.createElement("div");
+      wrapper.classList.add("viz__label-wrapper");
+
+      const labelTooltipWrapper = document.createElement("sl-tooltip");
+      labelTooltipWrapper.setAttribute("content", branch);
+
+      const labelElement = document.createElement("span");
+      labelElement.textContent = branch;
+      labelElement.classList.add("viz__branch-label");
+
+      labelTooltipWrapper.appendChild(labelElement);
+
+      const occurrencesElement = document.createElement("span");
+      occurrencesElement.textContent = occurrences;
+      occurrencesElement.classList.add("viz__occurences-label");
+
+      const barElement = document.createElement("span");
+      barElement.classList.add("viz__bar");
+      barElement.style.width = `${getWidthByOccurrences(occurrences)}%`;
+
+      wrapper.appendChild(labelTooltipWrapper);
+      wrapper.appendChild(occurrencesElement);
+      wrapper.appendChild(barElement);
+
+      vizChildren.push(wrapper);
     });
 
-    this.wrapperTarget.replaceChildren(...newChildren);
+    this.wrapperTarget.replaceChildren(...vizChildren);
   }
 }

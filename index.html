@@ -37,7 +37,7 @@
         <sl-select
           data-controller="select"
           data-select-map-outlet=".map"
-          data-select-viz-outlet=".sidebar__viz"
+          data-select-viz-outlet=".viz"
           value="all"
         >
           <sl-option value="all">Alle Branchen</sl-option>
@@ -53,9 +53,11 @@
           <sl-option value="Beherbergung">Beherbergung</sl-option>
           <sl-option value="Verlagswesen">Verlagswesen</sl-option>
         </sl-select>
-        <div data-controller="viz" class="sidebar__viz">
-          <div>Häufigste Gründungen nach Branchen im Kartenausschnitt:</div>
-          <ul data-viz-target="wrapper"></ul>
+        <div data-controller="viz" class="viz">
+          <div>
+            Im Kartenausschnitt waren die Top-Branchen im ausgewählten Jahr:
+          </div>
+          <figure data-viz-target="wrapper" class="viz__wrapper"></figure>
         </div>
       </div>
     </aside>

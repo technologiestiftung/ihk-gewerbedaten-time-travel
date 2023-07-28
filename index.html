@@ -67,7 +67,6 @@
       </div>
     </aside>
     <div
-      style="position: fixed; bottom: 3rem; left: 0; width: 100vw"
       data-controller="year-filter"
       data-year-filter-map-outlet=".map"
       class="year-filter"
@@ -85,16 +84,12 @@
           max="2023"
           step="1"
           value="2000"
-          style="
-            --track-color-active: var(--sl-color-primary-500);
-            --track-color-inactive: var(--sl-color-neutral-0);
-          "
           data-year-filter-target="input"
+          class="year-filter__range"
         ></sl-range>
         <div
           data-year-filter-target="label"
           class="year-filter__year-label"
-          id="year"
         ></div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de" class="sl-theme-light">
   <head>
-    <title>50 Jahre Berliner Top-Gewerbe</title>
+    <title>Zeitreise durch Berlins Gewerbe</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
@@ -34,7 +34,7 @@
     <div aria-hidden="true" class="year-filter__backdrop"></div>
     <aside class="sidebar">
       <div class="sidebar__wrapper">
-        <h1 class="sidebar__title">50 Jahre Berliner Top-Gewerbe</h1>
+        <h1 class="sidebar__title">Zeitreise durch Berlins Gewerbe</h1>
         <sl-select
           data-controller="select"
           data-select-map-outlet=".map"
@@ -106,12 +106,72 @@
         data-action="click->dialog#show"
       ></sl-icon-button>
       <sl-dialog
-        label="Dialog"
-        class="dialog-width"
-        style="--width: 50vw"
+        label="Willkommen auf der Zeitreise durch Berlins Gewerbe"
+        class="infos__dialog"
         data-dialog-target="dialog"
       >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <p>
+          Die Gewerbedaten der IHK Berlin umfassen rund 100 Jahre Berliner
+          Wirtschaftsgeschichte und sind als
+          <a href="https://github.com/IHKBerlin/IHKBerlin_Gewerbedaten"
+            >offener Datensatz</a
+          >
+          frei verfügbar.
+        </p>
+        <p>
+          Bewege dich durch die Jahrzente und erfahre, in welchen Jahren es wo
+          die meisten Gewerbegründungen gab und in welcher Branche diese
+          Unternehmen angesiedelt waren.
+        </p>
+        <div class="legend">
+          <h2 class="legend__label">Gewerbe-Eintragungen</h2>
+          <div class="legend__figure">
+            <span
+              class="legend__circle"
+              style="
+                background-color: var(--sl-color-primary-500);
+                opacity: 0.2;
+              "
+            ></span>
+            <span
+              class="legend__circle"
+              style="
+                background-color: var(--sl-color-primary-500);
+                opacity: 0.4;
+              "
+            ></span>
+            <span
+              class="legend__circle"
+              style="
+                background-color: var(--sl-color-primary-500);
+                opacity: 0.6;
+              "
+            ></span>
+            <span
+              class="legend__circle"
+              style="
+                background-color: var(--sl-color-primary-500);
+                opacity: 0.8;
+              "
+            ></span>
+            <span
+              class="legend__circle"
+              style="background-color: var(--sl-color-primary-500); opacity: 1"
+            ></span>
+            <span
+              class="legend__circle"
+              style="
+                background-color: var(--sl-color-primary-500);
+                opacity: 1;
+                border: 2px solid white;
+              "
+            ></span>
+          </div>
+          <div class="legend__range">
+            <span>Vergangenheit</span>
+            <span>Ausgewähltes Jahr</span>
+          </div>
+        </div>
       </sl-dialog>
     </div>
   </body>

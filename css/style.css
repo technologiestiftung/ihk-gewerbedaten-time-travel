@@ -30,6 +30,11 @@
   --sl-color-primary-800: var(--sl-color-red-800);
   --sl-color-primary-900: var(--sl-color-red-900);
   --sl-color-primary-950: var(--sl-color-red-950);
+
+  --sl-overlay-background-color: rgb(
+    var(--custom-color-map-bg-rgb-values),
+    0.75
+  );
 }
 
 :not(:defined) {
@@ -209,7 +214,7 @@ body {
 
 @media screen and (max-width: 768px) {
   .sidebar__title {
-    font-size: var(--sl-font-size-medium);
+    font-size: var(--sl-font-size-large);
   }
 }
 
@@ -296,7 +301,6 @@ body {
 
 .viz__bar {
   grid-column: span 2;
-
   background-color: var(--sl-color-primary-500);
 }
 
@@ -310,4 +314,59 @@ body {
   .viz__bar {
     height: 32px;
   }
+}
+
+/* 
+* ----------------------------------------------------
+* Infos section
+* ----------------------------------------------------
+*/
+.infos__button {
+  position: absolute;
+  top: var(--sl-spacing-small);
+  right: var(--sl-spacing-medium);
+  background-color: var(--sl-color-neutral-0);
+  border-radius: var(--sl-border-radius-medium);
+}
+
+.infos__dialog {
+  font-family: var(--sl-font-serif);
+  line-height: var(--sl-line-height-dense);
+}
+
+@media screen and (max-width: 768px) {
+  .infos__dialog {
+    --width: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .infos__dialog {
+    --width: 40vw;
+  }
+}
+
+/* 
+* ----------------------------------------------------
+* Legend
+* ----------------------------------------------------
+*/
+.legend {
+  display: block;
+}
+
+.legend__range {
+  display: flex;
+  justify-content: space-between;
+}
+
+.legend__figure {
+  background-color: rgb(var(--custom-color-map-bg-rgb-values));
+}
+
+.legend__circle {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
 }

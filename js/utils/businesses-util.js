@@ -15,6 +15,12 @@ export const getSelectedAge = () => {
   return parseInt(maxYear, 10) - parseInt(selectedYear, 10);
 };
 
+export const getBusinessInceptionYear = (businessAge) => {
+  const yearInput = document.querySelector(".year-filter sl-range");
+  const maxYear = yearInput.getAttribute("max");
+  return parseInt(maxYear, 10) - businessAge;
+};
+
 export const replaceUnderscoresWithSpaces = (input) => {
   return input.replaceAll("_", " ");
 };

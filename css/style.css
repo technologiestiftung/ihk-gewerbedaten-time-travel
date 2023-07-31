@@ -417,3 +417,37 @@ body {
   height: 20px;
   border-radius: 100%;
 }
+
+/* 
+* ----------------------------------------------------
+* Popup (map)
+* ----------------------------------------------------
+*/
+.maplibregl-popup-content {
+  padding: var(--sl-spacing-medium);
+}
+
+.maplibregl-popup-content table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th:nth-child(1),
+tbody td:nth-child(1) {
+  text-align: left;
+}
+
+thead th:nth-child(2),
+tbody td:nth-child(2) {
+  text-align: right;
+}
+
+tbody tr:not(:first-of-type) {
+  border-top: 1px solid var(--sl-color-neutral-200);
+}
+
+tbody td {
+  padding: var(--sl-spacing-x-small) 0;
+  vertical-align: top;
+}

@@ -92,8 +92,4 @@ export default class extends Controller {
   get selectedYear() {
     return parseInt(this.inputTarget.value, 10);
   }
-
-  get selectedAge() {
-    return this.maxYear - this.selectedYear;
-  }
 }

@@ -8,6 +8,7 @@ import {
   isValidAge as isValidBusinessAge,
   BUSINESSES_TILESET_PROPERTIES,
   getSelectedAge,
+  getBusinessInceptionYear,
 } from "../utils/businesses-util.js";
 
 export default class extends Controller {
@@ -63,9 +64,27 @@ export default class extends Controller {
       this.updateFilters({ minAge: getSelectedAge() });
       this.sendBusinessesToViz({ age: getSelectedAge() });
 
+      const popup = new maplibregl.Popup({
+        closeButton: false,
+        closeOnClick: false,
+      });
+
       this.map.on("mouseenter", "businesses-layer", (e) => {
-        // console.log("Branche:", e.features[0].properties.ihk_branch_desc);
-        // console.log("Alter:", e.features[0].properties.business_age);
+        const table = this.createPopupTable(e.features, [
+          "Branche",
+          "Gründungsjahr",
+        ]);
+
+        const [latitude, longitude] = e.features[0].geometry.coordinates;
+
+        popup
+          .setLngLat([latitude, longitude])
+          .setHTML(table.outerHTML)
+          .addTo(this.map);
+      });
+
+      this.map.on("mouseleave", "businesses-layer", () => {
+        popup.remove();
       });
 
       this.map.on("moveend", () => {
@@ -197,5 +216,54 @@ export default class extends Controller {
         this.map[interaction].disable()
       );
     }
+  }
+
+  /**
+   * Creates the HTML for a table element presenting business branch and inception year.
+   * @param {*} features GeoJSON feature object array
+   * @param {String[]} headers
+   * @returns HTMLTableElement
+   */
+  createPopupTable(features, headers) {
+    const table = document.createElement("table");
+
+    if (headers) {
+      const branchHead = document.createElement("th");
+      branchHead.textContent = "Branche";
+
+      const inceptionYear = document.createElement("th");
+      inceptionYear.textContent = "Gründungsjahr";
+
+      const thead = document.createElement("thead");
+
+      const tr = document.createElement("tr");
+      const theadRow = thead.appendChild(tr);
+      theadRow.appendChild(branchHead);
+      theadRow.appendChild(inceptionYear);
+
+      table.appendChild(thead);
+    }
+
+    const tbody = document.createElement("tbody");
+
+    features.map((feature) => {
+      const tr = document.createElement("tr");
+      const branch = document.createElement("td");
+      branch.textContent = feature.properties.ihk_branch_desc;
+
+      const year = document.createElement("td");
+      year.textContent = getBusinessInceptionYear(
+        feature.properties.business_age
+      );
+
+      tr.appendChild(branch);
+      tr.appendChild(year);
+
+      tbody.appendChild(tr);
+    });
+
+    table.appendChild(tbody);
+
+    return table;
   }
 }

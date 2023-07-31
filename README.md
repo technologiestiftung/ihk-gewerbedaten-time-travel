@@ -1,6 +1,6 @@
 # IHK Gewerbedaten Time Travel
 
-Data visualization that allows time travelling through the Berlin business landscape of the past 100 years.
+Data visualization that allows time travelling through the Berlin business landscape of the past 50 years.
 
 > This project uses the [latest open dataset](https://github.com/IHKBerlin/IHKBerlin_Gewerbedaten) provided by IHK Berlin.
 

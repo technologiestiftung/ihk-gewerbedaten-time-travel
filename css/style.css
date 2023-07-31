@@ -226,7 +226,8 @@ body {
 
 @media screen and (max-width: 768px) {
   .sidebar__title {
-    font-size: var(--sl-font-size-large);
+    font-size: var(--sl-font-size-medium);
+    line-height: var(--sl-spacing-x-large);
   }
 }
 

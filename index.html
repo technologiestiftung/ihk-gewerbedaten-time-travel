@@ -108,7 +108,10 @@
         <p>
           Die Gewerbedaten der IHK Berlin umfassen rund 100 Jahre Berliner
           Wirtschaftsgeschichte und sind als
-          <a href="https://github.com/IHKBerlin/IHKBerlin_Gewerbedaten"
+          <a
+            href="https://github.com/IHKBerlin/IHKBerlin_Gewerbedaten"
+            target="_blank"
+            rel="noopener noreferrer"
             >offener Datensatz</a
           >
           frei verfügbar.
@@ -118,53 +121,58 @@
           die meisten Gewerbegründungen gab und in welcher Branche diese
           Unternehmen angesiedelt waren.
         </p>
-        <div class="legend">
-          <h2 class="legend__label">Gewerbe-Eintragungen</h2>
+        <div class="legend" slot="footer">
+          <h3 class="legend__label">Gewerbe-Eintragungen</h3>
           <div class="legend__figure">
-            <span
-              class="legend__circle"
-              style="
-                background-color: var(--sl-color-primary-500);
-                opacity: 0.2;
-              "
-            ></span>
-            <span
-              class="legend__circle"
-              style="
-                background-color: var(--sl-color-primary-500);
-                opacity: 0.4;
-              "
-            ></span>
-            <span
-              class="legend__circle"
-              style="
-                background-color: var(--sl-color-primary-500);
-                opacity: 0.6;
-              "
-            ></span>
-            <span
-              class="legend__circle"
-              style="
-                background-color: var(--sl-color-primary-500);
-                opacity: 0.8;
-              "
-            ></span>
-            <span
-              class="legend__circle"
-              style="background-color: var(--sl-color-primary-500); opacity: 1"
-            ></span>
-            <span
-              class="legend__circle"
-              style="
-                background-color: var(--sl-color-primary-500);
-                opacity: 1;
-                border: 2px solid white;
-              "
-            ></span>
-          </div>
-          <div class="legend__range">
-            <span>Vergangenheit</span>
-            <span>Ausgewähltes Jahr</span>
+            <div class="legend__figure-content">
+              <span
+                class="legend__circle"
+                style="
+                  background-color: var(--sl-color-primary-500);
+                  opacity: 0.25;
+                "
+              ></span>
+              <span
+                class="legend__circle"
+                style="
+                  background-color: var(--sl-color-primary-500);
+                  opacity: 0.4;
+                "
+              ></span>
+              <span
+                class="legend__circle"
+                style="
+                  background-color: var(--sl-color-primary-500);
+                  opacity: 0.6;
+                "
+              ></span>
+              <span
+                class="legend__circle"
+                style="
+                  background-color: var(--sl-color-primary-500);
+                  opacity: 0.8;
+                "
+              ></span>
+              <span
+                class="legend__circle"
+                style="
+                  background-color: var(--sl-color-primary-500);
+                  opacity: 1;
+                "
+              ></span>
+              <span
+                class="legend__circle"
+                style="
+                  background-color: var(--sl-color-primary-500);
+                  opacity: 1;
+                  border: 2px solid white;
+                "
+              ></span>
+            </div>
+            <div class="legend__figure-labels">
+              <span>Vergangenheit</span>
+              <span>Ausgewähltes Jahr ↑</span>
+            </div>
           </div>
         </div>
       </sl-dialog>

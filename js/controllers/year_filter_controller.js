@@ -55,14 +55,19 @@ export default class extends Controller {
   }
 
   advanceYear() {
-    this.yearInterval = setInterval(() => {
-      const newYear = parseInt(this.inputTarget.value, 10) + 1;
+    if (this.inputTarget.value === this.maxYear) return;
 
-      if (newYear === this.maxYear) this.stopAdvancingYear();
+    this.yearInterval = setInterval(() => {
+      if (this.inputTarget.value === this.maxYear) {
+        this.stopAdvancingYear();
+        return;
+      }
+
+      const newYear = parseInt(this.inputTarget.value, 10) + 1;
+      this.inputTarget.value = newYear;
 
       this.sendToOutlets(this.maxYear - newYear);
       this.updateYearLabel(newYear);
-      this.inputTarget.value = newYear;
     }, 1200);
 
     this.mapOutlet.toggleInteractions({ on: false });

@@ -372,17 +372,18 @@ body {
 */
 .legend {
   display: block;
+  background-color: #152866;
 }
 
 .legend__label {
-  font-size: var(--sl-font-size-medium);
+  font-size: var(--sl-font-size-small);
   text-align: left;
-  padding-left: var(--sl-spacing-large);
+  padding: var(--sl-spacing-large) var(--sl-spacing-large) 0;
+  color: var(--sl-color-neutral-0);
 }
 
 .legend__figure {
   width: 100%;
-  background-color: #152866;
   display: grid;
   grid-template-columns: 1fr;
   row-gap: var(--sl-spacing-medium);

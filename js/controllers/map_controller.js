@@ -93,6 +93,11 @@ export default class extends Controller {
     });
   }
 
+  /**
+   * Updates the map filters so that circles are conditionally rendered depending on the provided options.
+   * @param {{minAge: number, branch: string}} options
+   * @returns void
+   */
   updateFilters({ minAge: newMinAge, branch: newBranch }) {
     const existingAgeFilter = this.getFilterByFeatureProperty(
       BUSINESSES_TILESET_PROPERTIES.age
@@ -129,6 +134,11 @@ export default class extends Controller {
       this.styleCirclesByBusinessAge(newMinAge);
   }
 
+  /**
+   * Retrives Maplibre GL JS filter object matching provided feature property.
+   * @param {*} property
+   * @returns any
+   */
   getFilterByFeatureProperty(property) {
     const filterEntries = this.map.getFilter("businesses-layer");
 
@@ -139,6 +149,11 @@ export default class extends Controller {
     return propertyFilter;
   }
 
+  /**
+   * Styles map circles according to provided business age.
+   * @param {number} businessAge
+   * @returns void
+   */
   styleCirclesByBusinessAge(businessAge) {
     this.map.setPaintProperty("businesses-layer", "circle-opacity", [
       "interpolate",
@@ -164,6 +179,11 @@ export default class extends Controller {
     ]);
   }
 
+  /**
+   *
+   * @param {*} filter
+   * @returns void
+   */
   renderedBusinesses(filter) {
     return this.map.queryRenderedFeatures({
       layers: ["businesses-layer"],
@@ -171,6 +191,11 @@ export default class extends Controller {
     });
   }
 
+  /**
+   * Queries the rendered features and sends them to the visualization (via a Stimulus outlet)
+   * @param {{age: number}} options
+   * @returns void
+   */
   sendBusinessesToViz({ age }) {
     const updateViz = () => {
       const filter = isValidBusinessAge(age)
@@ -196,6 +221,11 @@ export default class extends Controller {
     }
   }
 
+  /**
+   * Toggles the map interactions on or off.
+   * @param {{on: Boolean}} options
+   * @returns void
+   */
   toggleInteractions({ on = false }) {
     if (!this.map) return;
 

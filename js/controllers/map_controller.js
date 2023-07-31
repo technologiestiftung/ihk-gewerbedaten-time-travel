@@ -20,7 +20,7 @@ export default class extends Controller {
     this.map = new maplibregl.Map({
       container: "map",
       center: [13.404, 52.52],
-      zoom: 13,
+      zoom: 12,
       maxZoom: 16.5,
       minZoom: 11.5,
       style: MAPTILER_BASEMAP_STYLE_JSON_URL,

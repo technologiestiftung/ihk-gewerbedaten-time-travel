@@ -72,9 +72,8 @@ Now you can upload the tileset `tiles/data.pmtiles` to the S3 bucket, making sur
 - [x] style year slider properly
 - [x] style select menu
 - [x] agree on focus branches
-- [ ] consider adding legend
+- [x] consider adding legend
 - [x] find better colors
 - [x] refactor viz controller
 - [x] darker backdrop behind title
-- [ ] move select generation into JS
 - [ ] more docs
